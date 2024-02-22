@@ -99,3 +99,69 @@ windown <--> this
 
 --> this happens because x return not only the function y but the entire closure 
 --> so the functions remember their lexical environment even when the lexical env doesn't exists anymore.
+
+7. setTimeout
+ --> setTimeout function takes a callback function and a time
+ --> it stores the callback function and waits for the timer to expire
+ --> once expired it puts the callback function in call stack and runs it
+ --> this doesn't means that the js program stops executing for the given time at setTimeout call and then proceeds.
+ --> it proceeds and executes rest of the code
+
+	function x(){
+	  var i = 1;
+	  setTimeout(function(){
+		console.log(i);
+	  }, 3000);
+	  console.log("hello");
+	}
+	x();
+	--> hello
+	after 3s
+	--> 1
+
+ --> In closures the function remembers the reference to the variables rather than the value of variable.
+
+	function x(){
+	  for(var i = 1; i<=5; i++){
+	    setTimeout(function(){
+		console.log(i);
+	    }, i*1000);
+	  }
+	}
+	x();
+	--> 6
+	--> 6
+	--> 6
+	--> 6
+	--> 6
+ --> this happens because the setTimeout takes the callback function with the closure pointing towards var i in global scope and waits for the timer.
+ --> when the setTimeout puts the function in call stack the i variable has become 6 so it prints 6 only.
+
+ --> To solve this have to pass different copies of i to the callback function, so we can use let instead of var
+
+	function x(){
+	  for(let i = 1; i<=5; i++){
+	    setTimeout(function(){
+		console.log(i);
+	    }, i*1000);
+	  }
+	}
+	x();
+
+ --> As let has block scope everytime the setTimeout stores the callback function each i poitns to a different variable with different values.
+
+ --> To pass different copies of i to the callback function we can also create another closure inside the loop
+
+	function x(){
+	  for(var i = 1; i<=5; i++){
+	    function close(h){
+		setTimeout(function(){
+		console.log(h);
+	    }, h*1000);
+	    }
+	    close(i);
+	  }
+	}
+	x();
+
+ --> the closure function remembers the reference to its parents variables and function even when it is being executed in some other scope.
