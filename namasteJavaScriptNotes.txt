@@ -28,4 +28,74 @@ windown <--> this
  --> assigning diff value to const variable throws TypeError
  --> preference order:  const > let > var
  --> initiallization of variables should be done at top of code to avaoid temporal dead zone
- 
+
+4. Block scope and shadowing
+ --> Block in js => {} 
+ --> Block is used to write multiple lines of code where js allows only single line
+ --> it is also called compound statement
+ --> scope of block -> variables and functions which can be accessed within the block.
+ --> hoisting in block 
+	--> let and const variables declared inside block have block scope only and cannot be accessed outside the block
+	--> var variable inside the block is created in global scope and can be accessed outside the block
+
+5. Shadowing
+ --> example
+	var a = 100; --> created in global scope
+	{
+	var a = 10; --> overrides the a created in global scope
+	let b = 20; --> created in block scope
+	const c = 30; --> creted in blcok scope
+	console.log(a); --> 10
+	console.log(b); --> 20
+	console.log(c); --> 30
+	}
+	console.log(a); --> 10 --> the a in global scope has been shadowed by a in block
+ --> example 2
+	let b = 100; --> created in script scope
+	{
+	var a = 10; --> created in global scope
+	let b = 20; --> created in block scope
+	const c = 30; --> creted in blcok scope
+	console.log(a); --> 10
+	console.log(b); --> 20 : the b in block scope shadows the b in script scope so output is 30
+	console.log(c); --> 30
+	}
+	console.log(b); --> 100 --> the b in block scope does not exists after running the block so this outputs 100 from the script scope
+
+--> example 3
+	let b = 100;
+	function x(){
+	let b = 30;
+	console.log(b);
+	}
+	x(); --> 30 : the b in function scope shadows the b in script scope so output is 30
+	console.log(b); --> 100 : after execution, function scope does not exists so the value is taken from the script scope
+
+--> let variables cannot be shadowed by var variables in block scope but can be shadowed using fucntion scope
+	let a = 100;
+	{
+	var a = 10;
+	} --> not allowed
+	
+
+	let a = 100;
+	function x(){
+	var a = 10;
+	} --> allowed
+
+6. Closures
+ --> Closure is a function binded with its lexical environment
+ --> in js a function can return a function 
+	function x(){
+	  var a = 7;
+	  function y(){
+	    console.log(a);
+	  }
+	  return y;
+	}
+
+	var z = x();	
+	z() --> prints 7
+
+--> this happens because x return not only the function y but the entire closure 
+--> so the functions remember their lexical environment even when the lexical env doesn't exists anymore.
