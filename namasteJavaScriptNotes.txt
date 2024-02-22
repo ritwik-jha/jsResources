@@ -1,0 +1,31 @@
+NAMASTE JAVASCRIPT
+
+window object is the global object.
+windown <--> this
+
+1. Hoisting
+ --> execution context contains variable environment where variables and funcions are stored and code env where code is stored
+ --> js program is executed in two phases 
+	--> P1: Memory creation phase: Variables and functions are hoisted
+	--> P2: Code execution phase: Code is executed
+ --> undefined keyword --> placeholder
+ --> first all the variables are hoisted with undefined and functions are hoisted with complete function body.
+ --> then all the variables are assigned values and functions are executed.
+ 
+2. Scope chain and lexical env
+ --> every execution context can access the execution context of its parents
+ --> the execution context of parent is called lexical environment.
+ 
+ 
+3. let vs var vs const
+ --> vars and let are hoisted with undefined initially.
+ --> let variables cannot be accessed before value assignment. 
+ --> the time between hoisting and value initiallization for let variable is called temporal dead zone.
+ --> acessing variable in temporal dead zone gives reference error.
+ --> let and const are not stored in the global object they are stored in different space
+ --> let variables cannot be redeclared.
+ --> const cannot be declared and initiallized later it has to be initiallized in same line.
+ --> assigning diff value to const variable throws TypeError
+ --> preference order:  const > let > var
+ --> initiallization of variables should be done at top of code to avaoid temporal dead zone
+ 
