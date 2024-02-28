@@ -210,3 +210,18 @@ windown <--> this
 --> first class functions <-> first class citizens
 
 --> Arrow functions
+
+8. Callback Functions
+ --> the function passed into another function as argument is called the callback function.
+	function x(){}
+
+	x(function y(){});
+	-> here y is the callback function.
+
+ --> EventListners
+	document.getElementById("").addEventListner("click", function (){});
+
+	the event listner stores the function and puts it in the call stack when it detects the event.
+
+
+
