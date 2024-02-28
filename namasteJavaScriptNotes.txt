@@ -165,3 +165,48 @@ windown <--> this
 	x();
 
  --> the closure function remembers the reference to its parents variables and function even when it is being executed in some other scope.
+
+7. First class functions
+ --> Anonimous function is function without any name
+ --> Function statement
+	function a(){
+		console.log();
+	}
+ --> function expression
+	var b = function() {
+		console.log();
+	}
+
+ --> difference between the two is in terms of hoisting. 
+ --> In case of a the entire function is stored in memory allocation phase. In case of b the during memory allocation phase the b is stored is undefined.
+
+ --> function statement <--> function decleration
+
+ --> anonymous function
+	function (){
+		console.log();
+	}
+
+ --> named function expression
+	var b = function xyz(){
+		console.log();
+	}
+
+	b();  //executes the function
+	xyz(); // throws error
+ --> xyz(); throws error because function xyz is not defined in global scope and cannot be accessed. It can be accessed within the funciton's local scope.
+
+--> prameters vs arguments
+	function a(parameter1, parameter2){
+
+	}
+
+	a(argument1, argument2);
+
+--> first class function
+    -> functions can take functions as arguments and can return functions
+    -> the ability of functions to be used as values and be able to pass it as arguments and return from another function is called first class function
+
+--> first class functions <-> first class citizens
+
+--> Arrow functions
