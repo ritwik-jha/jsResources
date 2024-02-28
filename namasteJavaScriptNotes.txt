@@ -223,5 +223,65 @@ windown <--> this
 
 	the event listner stores the function and puts it in the call stack when it detects the event.
 
+9. Async JS and Event loopls
+ --> To access all the features of browsers we need to use WEB API's 
+ --> the web api's provided by the browser are:
+	setTimeout() -> to access the timer
+	DOM API (document) -> to accesss the DOM tree
+	fetch() -> to connect to other servers
+	console
+	location
+
+ --> To access these web apis we need to use the global objects 
+ --> the global object in browser is window.
+ --> The js engine in browser has access to this global object, window.
+
+ --> How setTimeout works:
+	-> setTimeout takes the callback function and waits for the timer to expire.
+     	-> when the timer expires the callback function is moved to the callback queue. 
+     	-> the event loop is like a gatekeeper to the call stack and keeps checking the callback queue and the callstack.
+     	-> If the call stack is empty and anything in the callback queue it pushes it in the callstack where it gets executed. 
+
+ --> How addEventListner works
+	-> the addEventListner stores the callback function and attaches an event to it then the program moves on. The rest of the lines are executed and if no blockage of main thread then the GEC is popped of the call stack. 
+	-> The callback function and the event stored wait for the event to happen.
+	-> When the event happens, the callback function will be pushed to the callback queue and from there to call stack, if call stack is empty, via the eventloop. 
 
 
+ --> fetch()
+	-> fetch is used to get data from external apis.
+	-> the fetch takes a callback function and stores it and waits for the response from the api.
+	-> when api response is received then the call back function is moved to the microtask queue. 
+	-> microtask queue has higher priority than callback queue. 
+	-> once the callstack is empty, the event loop first checks the microtask queue and if any function is there it pushes it in the callstack. 
+	-> then the eventloop checks the callback queue and executes those functions. 
+
+ --> Microtask queue
+	-> all the callback funcions generated off promises are put in this queue.
+	-> all the functions by mutation observer
+	-> rest all the callback functions goes to the callback queue
+	-> IF there are multiple functions in microtask queue then all of those functions will be executed before execution of callback queue funcions.
+
+	-> It might happen that one microtask fn creates other microtask fn and the cycle keeps on, in this situation the fn in callback queue will not get a change to be executed. 
+	-> this is called Starvation of callback queue functions. 
+
+
+
+10. JS Engine
+--> first js engine -> spriderMonkey
+--> Js engine comprimises of: 
+	code(input) --> parsing --> compilation --> execution
+--> Parsing converts the human redabale code into tokens and then into Abstract Syntax Tree
+--> Js uses JIT compilation
+--> Interpreter executes the code line by line
+--> Compiler compiles the entire code and converts into an optimized version of that code and then executes it.
+--> Js can behave as an interpreted as well as an compiled language based on the js engine.
+--> Initially js was supposed to be interpreted language but today the browsers use a mix of compiled and interpreted approach of compilation and this is called JIT compilation.
+
+--> The AST is sent to the interpretter which converts it into byte code for execution and at the same time it interacts with the compiler to optimize the code.
+--> The execution involves the use of memory heap and call stack to execute the converted byte code. 
+--> Garbage collector tries to clear the memory heap by freeing up space. 
+--> GC uses an algorithm called mark and sweep algorithm.
+// mark and sweep algo research
+--> V8 engine uses interpreter named ignition and code optimizing compiler named turbo fan
+--> In JIT compilation interpreter converts AST to bytecode and compiler tries to optimize the code and feeds to the bytecode as well. 
