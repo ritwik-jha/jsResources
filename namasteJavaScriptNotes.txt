@@ -285,3 +285,23 @@ windown <--> this
 // mark and sweep algo research
 --> V8 engine uses interpreter named ignition and code optimizing compiler named turbo fan
 --> In JIT compilation interpreter converts AST to bytecode and compiler tries to optimize the code and feeds to the bytecode as well. 
+
+
+11. setTimeout()
+--> setTimeout() never always assures that the callback function will be executed in 5000 ms.
+--> the callback function will be called only when the callstack is empty by eventloop. 
+--> this might take more than the specified time in setTimeout()
+
+
+12. Higher order function
+--> A function which takes a function as a parameter or returns a function is called higher order function.
+	function x(){
+		console.log();
+	}
+
+	function y(x){
+		x();
+	}
+
+	--> y is higher order function and x is the callback function. 
+
